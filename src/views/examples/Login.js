@@ -32,6 +32,21 @@ import {
   Col
 } from "reactstrap";
 
+
+import services from '../../services/login'
+import userServices from '../../services/user'
+
+const handlerLogin = async() => {
+  //oauth("login button")
+  const data = await (await services("")).data
+  
+  // Cuser
+  //console.log(await (await userServices("")).data)
+}
+
+
+
+
 const Login = () => {
   return (
     <>
@@ -125,7 +140,7 @@ const Login = () => {
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button">
+                <Button className="my-4" color="primary" type="button" onClick = {handlerLogin}>
                   Sign in
                 </Button>
               </div>
