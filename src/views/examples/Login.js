@@ -35,14 +35,21 @@ import {
 
 import services from '../../services/login'
 import userServices from '../../services/user'
+import ambulanciaServices, {Dambulancia} from '../../services/ambulancia'
 
 const handlerLogin = async() => {
   //oauth("login button")
-  const data = await (await services("")).data
+  //const data = await (await services("")).data
   
   // Cuser
   //console.log(await (await userServices("")).data)
+  //console.log(ambulanciaServices("",""))
+  console.log(await (await Dambulancia('63cc67664d2fb66bc4340bb7','Bearer eyJhbGciOiJIUzI1NiJ9.eyJkb2MiOnsiX2lkIjoiNjNhYzA3NzQ0ZTk5MjhlOWFmOWYxNDhjIiwibmFtZSI6ImRpZWdvIGF4c2VsIGdhcmNpYSBzaWVycmEiLCJhZ2UiOjIzLCJlbWFpbCI6ImRpZWdvQGdtYWlsLmNvbSIsInBhc3N3ZCI6IiQyYSQxMCRqNTBYN29JY0QwRWpEeEZzTVBmNERlNWE0UDU3dlQuVTZYTDVCVTFwUUpmRmxqU290NjlsLiIsInJvbCI6InVuYXNzaWduZWQiLCJpZF9hbWJ1bGFuY2lhIjpbIjYzYWMxNzcxMjc1YTc2Y2JiNGVjYTE0ZCIsIjYzYWM1MTQxNDRhMGVmMGJmMWFjZDk3MSJdLCJpZF9ncHMiOltdLCJjcmVhdGVkIjoiMjAyMi0xMi0yOFQwOTowODowNC40NjBaIn0sImV4cCI6MTY3NDM2MTk2NH0.Y-zfOaT4e-J2vq1mf4JF7j7QLXCyP0BqgyWFgr5WFVU')).data)
+
 }
+
+
+
 
 
 
