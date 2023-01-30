@@ -1,22 +1,4 @@
-/*!
 
-=========================================================
-* Argon Dashboard React - v1.2.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// reactstrap components
 import {
   Button,
   Card,
@@ -32,23 +14,37 @@ import {
   Col
 } from "reactstrap";
 
+import { useForm } from "react-hook-form";
 
-import services from '../../services/login'
-import userServices from '../../services/user'
-import ambulanciaServices, {Dambulancia} from '../../services/ambulancia'
-
-const handlerLogin = async() => {
-  //oauth("login button")
-  //const data = await (await services("")).data
-  
-  // Cuser
-  //console.log(await (await userServices("")).data)
-  //console.log(ambulanciaServices("",""))
-  //console.log(await (await Dambulancia('63cc67664d2fb66bc4340bb7','Bearer eyJhbGciOiJIUzI1NiJ9.eyJkb2MiOnsiX2lkIjoiNjNhYzA3NzQ0ZTk5MjhlOWFmOWYxNDhjIiwibmFtZSI6ImRpZWdvIGF4c2VsIGdhcmNpYSBzaWVycmEiLCJhZ2UiOjIzLCJlbWFpbCI6ImRpZWdvQGdtYWlsLmNvbSIsInBhc3N3ZCI6IiQyYSQxMCRqNTBYN29JY0QwRWpEeEZzTVBmNERlNWE0UDU3dlQuVTZYTDVCVTFwUUpmRmxqU290NjlsLiIsInJvbCI6InVuYXNzaWduZWQiLCJpZF9hbWJ1bGFuY2lhIjpbIjYzYWMxNzcxMjc1YTc2Y2JiNGVjYTE0ZCIsIjYzYWM1MTQxNDRhMGVmMGJmMWFjZDk3MSJdLCJpZF9ncHMiOltdLCJjcmVhdGVkIjoiMjAyMi0xMi0yOFQwOTowODowNC40NjBaIn0sImV4cCI6MTY3NDM2MTk2NH0.Y-zfOaT4e-J2vq1mf4JF7j7QLXCyP0BqgyWFgr5WFVU')).data)
-  window.location.href = "http://localhost:3000/home"
-}
+import loginServices from '../../services/login'
 
 const Login = () => {
+
+  const { register, handleSubmit} = useForm();
+
+  //const { ref, ...registerEmail } = register('email');
+
+  const values = ["email", "passwd"]
+  const registers = []
+ 
+  values.forEach((v) => {
+    const {ref, ...others} =  register(v)
+    registers.push({
+      ref,
+      others
+    })
+  })
+
+  const onSubmit = async(data) => {
+    const response = await (await loginServices(data)).data
+    
+    if(response === "no puede ingresar" || response === "No existe el usuario"){
+      console.log("error")
+    }else{
+      window.location.href = "http://localhost:3000/home"
+    }
+  };
+
   return (
     <>
       <Col lg="5" md="7">
@@ -98,7 +94,8 @@ const Login = () => {
             <div className="text-center text-muted mb-4">
               <small>Or sign in with credentials</small>
             </div>
-            <Form role="form">
+
+            <Form role="form" onSubmit={handleSubmit(onSubmit)}>
               <FormGroup className="mb-3">
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
@@ -106,10 +103,14 @@ const Login = () => {
                       <i className="ni ni-email-83" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input
+                  <Input 
+
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
+
+                  innerRef={registers[0].ref} 
+                  {...registers[0].others}
                   />
                 </InputGroup>
               </FormGroup>
@@ -120,10 +121,14 @@ const Login = () => {
                       <i className="ni ni-lock-circle-open" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input
-                    placeholder="Password"
-                    type="password"
-                    autoComplete="new-password"
+                  <Input 
+
+                  placeholder="Password"
+                  type="password"
+                  autoComplete="new-password"
+
+                  innerRef={registers[1].ref} 
+                  {...registers[1].others}
                   />
                 </InputGroup>
               </FormGroup>
@@ -141,7 +146,7 @@ const Login = () => {
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button" onClick = {handlerLogin}>
+                <Button className="my-4" color="primary" type="submit">
                   Sign in
                 </Button>
               </div>
@@ -169,6 +174,7 @@ const Login = () => {
           </Col>
         </Row>
       </Col>
+     
     </>
   );
 };
