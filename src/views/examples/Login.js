@@ -50,51 +50,8 @@ const Login = () => {
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
           <CardHeader className="bg-transparent pb-5">
-            <div className="text-muted text-center mt-2 mb-3">
-              <small>Sign in with</small>
-            </div>
-            <div className="btn-wrapper text-center">
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/icons/common/github.svg")
-                        .default
-                    }
-                  />
-                </span>
-                <span className="btn-inner--text">Github</span>
-              </Button>
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/icons/common/google.svg")
-                        .default
-                    }
-                  />
-                </span>
-                <span className="btn-inner--text">Google</span>
-              </Button>
-            </div>
           </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">
-            <div className="text-center text-muted mb-4">
-              <small>Or sign in with credentials</small>
-            </div>
-
             <Form role="form" onSubmit={handleSubmit(onSubmit)}>
               <FormGroup className="mb-3">
                 <InputGroup className="input-group-alternative">
@@ -105,7 +62,7 @@ const Login = () => {
                   </InputGroupAddon>
                   <Input 
 
-                    placeholder="Email"
+                    placeholder="Correo electronico"
                     type="email"
                     autoComplete="new-email"
 
@@ -123,7 +80,7 @@ const Login = () => {
                   </InputGroupAddon>
                   <Input 
 
-                  placeholder="Password"
+                  placeholder="Contraseña"
                   type="password"
                   autoComplete="new-password"
 
@@ -142,12 +99,12 @@ const Login = () => {
                   className="custom-control-label"
                   htmlFor=" customCheckLogin"
                 >
-                  <span className="text-muted">Remember me</span>
+                  <span className="text-muted">Recuerdame la contraseña</span>
                 </label>
               </div>
               <div className="text-center">
                 <Button className="my-4" color="primary" type="submit">
-                  Sign in
+                    iniciar sesión
                 </Button>
               </div>
             </Form>
@@ -160,16 +117,16 @@ const Login = () => {
               href="#pablo"
               onClick={(e) => e.preventDefault()}
             >
-              <small>Forgot password?</small>
+              <small>olvidate la contraseña?</small>
             </a>
           </Col>
           <Col className="text-right" xs="6">
             <a
               className="text-light"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
+              href="http://localhost:3000/auth/register"
+              onClick={(e) =>  window.location.href = "http://localhost:3000/auth"}
             >
-              <small>Create new account</small>
+              <small>crear una cuenta</small>
             </a>
           </Col>
         </Row>
