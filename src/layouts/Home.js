@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation, Route, Switch} from "react-router-dom";
 
 import Sidebar from "components/Sidebar/Sidebar.js";
+import HomeNavBar from "components/Navbars/HomeNavbar";
 
 import routes from "routes.js";
 
@@ -31,22 +32,39 @@ const Home = (props) => {
     });
   };
 
+  const getBrandText = (path) => {
+    for (let i = 0; i < routes.length; i++) {
+      if (
+        props.location.pathname.indexOf(routes[i].layout + routes[i].path) !==
+        -1
+      ) {
+        return routes[i].name;
+      }
+    }
+    return "Brand";
+  };
+
+  window.google = undefined
+
   return (
     <>
       <Sidebar
         {...props}
         routes={routes}
         logo={{
-          innerLink: "/admin/index",
-          imgSrc: require("../assets/img/brand/argon-react.png"),
+          innerLink: "/",
+          imgSrc: require("../assets/img/brand/iot.png"),
           imgAlt: "..."
         }}
         layout = "/home"
       />
-
-      
       <div className="main-content" ref={mainContent}>
-      <h1> parte dinamica del contenido </h1>
+
+        <HomeNavBar
+            {...props}
+            brandText={getBrandText(props.location.pathname)}
+        />  
+
         <Switch>
           {getRoutes(routes)}
         </Switch>

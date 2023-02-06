@@ -25,12 +25,16 @@ import Header from "components/Headers/Header.js";
 
 const MapWrapper = () => {
   const mapRef = React.useRef(null);
+
   React.useEffect(() => {
+
     let google = window.google;
     let map = mapRef.current;
     let lat = "40.748817";
     let lng = "-73.985428";
+
     const myLatlng = new google.maps.LatLng(lat, lng);
+
     const mapOptions = {
       zoom: 12,
       center: myLatlng,
@@ -101,6 +105,7 @@ const MapWrapper = () => {
       infowindow.open(map, marker);
     });
   }, []);
+  
   return (
     <>
       <div
@@ -122,7 +127,6 @@ const Maps = () => {
         <Row>
           <div className="col">
             <Card className="shadow border-0">
-              <MapWrapper />
             </Card>
           </div>
         </Row>

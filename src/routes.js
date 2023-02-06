@@ -59,16 +59,16 @@ var routes = [
     layout: "/auth"
   },
   {
-    path: "/test",
-    name: "home",
-    icon: "ni ni-planet text-blue",
+    path: "/conductores",
+    name: "conductores",
+    icon: "ni ni-badge text-yellow",
     component: Home,
     layout: "/home"
   },
   {
     path: "/ambulancia",
     name: "ambulancia",
-    icon: "ni ni-planet text-blue",
+    icon: "ni ni-ambulance text-blue",
     component: Ambulancias,
     layout: "/home"
   },

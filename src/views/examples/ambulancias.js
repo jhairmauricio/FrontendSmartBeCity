@@ -1,6 +1,18 @@
+import HomeHeader from "components/Headers/HomeHeader";
+import Map from "components/map";
+import { Container } from "reactstrap";
+
 function Ambulancias() {
     return (<>
-        <h1> Soy el componente de ambulancia</h1>
+        <HomeHeader/>
+        
+        
+        <Container className = "mt-5" fluid>
+            <Map/>
+        </Container>
+            
+       
+        
     </>);
 }
 
