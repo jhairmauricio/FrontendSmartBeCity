@@ -3,9 +3,6 @@ import { Col, Card, CardBody, Row, CardTitle, CardFooter } from "reactstrap";
 
 function AmbulanceCard(props) {
 
-
-console.log(props)
-
 return (    
         <Col lg="6" xl="3">
             <Card className="card-stats mb-4 mb-xl-0">
@@ -29,11 +26,11 @@ return (
                 </CardBody>
 
                 <CardFooter>
-                    <div className="icon icon-shape bg-danger text-white rounded-circle shadow ">
-                        <i className="fas fa-trash-alt"/>
+                    <div className="icon icon-shape bg-danger text-white rounded-circle shadow " onClick = {props.ModalHandler.trash}>
+                        <i className="fas fa-trash-alt" />
                     </div>
-                    <div className="icon icon-shape bg-warning text-white rounded-circle shadow ml-3">
-                        <i className="fas fa-wrench"/>
+                    <div className="icon icon-shape bg-warning text-white rounded-circle shadow ml-3" onClick = {props.ModalHandler.wrench}>
+                        <i className="fas fa-wrench" />
                     </div>
                 </CardFooter>
                 
