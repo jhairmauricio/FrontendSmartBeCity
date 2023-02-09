@@ -8,5 +8,13 @@ const RambulanciabyId = async(      id, header) => axios.get   (`${uri}/Rambulan
 const UambulanciabyId = async(body, id, header) => axios.patch (`${uri}/UambulanciabyId?id=${id}`, body, { headers :  {'Authorization': header}})
 const Dambulancia     = async(      id, header) => axios.delete(`${uri}/Dambulancia?id=${id}`          , { headers :  {'Authorization': header}})
 
+const RgpsByambulancia = async(id, token) => axios.get(
+    `${uri}/RgpsByambulancia?idc=${id}`,{
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+  } 
+)
+
 export default Cambulancia;
-export {RambulanciabyId, UambulanciabyId, Dambulancia};
+export {RambulanciabyId, UambulanciabyId, Dambulancia, RgpsByambulancia};

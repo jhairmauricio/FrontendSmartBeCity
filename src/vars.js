@@ -1,5 +1,5 @@
 const Vars = {
-    LOCAL     : false,
+    LOCAL     : true,
     BACKPORT  : 8000,
     REMOTEIP  : '54.193.231.147',
     DEPLOY    : false,

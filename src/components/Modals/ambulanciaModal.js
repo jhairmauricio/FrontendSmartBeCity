@@ -1,9 +1,9 @@
-import {Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Form } from "reactstrap";
 
 function AmbulanciaModal(props) {
 
-    const {handlerFunction, modalStatus, style} = props;
-
+    const {handlerFunction, modalStatus, style, handleSubmit, onSubmit} = props;
+    
     var titleColor = "";
     var color = "";
 
@@ -26,20 +26,22 @@ function AmbulanciaModal(props) {
 
     return (<>
     <Modal isOpen = {modalStatus} toggle = {handlerFunction} centered={true}>
-        <ModalHeader toggle={handlerFunction} tag="h3" className="text-success"> 
-            <span className={titleColor}> {style.title} </span>
-        </ModalHeader>
-                <ModalBody>
-                    {typeof(style.content) === "string" ? style.content : style.content()}
-                </ModalBody>
-            <ModalFooter>
-          <Button color="danger" onClick = {handlerFunction}>
-            cerrar
-          </Button>
-          <Button color = {color} onClick = {handlerFunction}>
-            {style.buttonMessage}
-          </Button>
-        </ModalFooter>
+        <Form role = "form" onSubmit={handleSubmit(onSubmit)}>
+            <ModalHeader toggle={handlerFunction} tag="h3" className="text-success"> 
+                <span className={titleColor}> {style.title} </span>
+            </ModalHeader>
+                    <ModalBody>
+                        {typeof(style.content) === "string" ? style.content : style.content()}
+                    </ModalBody>
+                <ModalFooter>
+            <Button color="danger" onClick = {handlerFunction}>
+                cerrar
+            </Button>
+            <Button color = {color} onClick = {handlerFunction} type = "submit">
+                {style.buttonMessage}
+            </Button>
+            </ModalFooter>
+        </Form>
     </Modal>
 
     </>);

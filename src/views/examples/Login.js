@@ -15,33 +15,46 @@ import {
 } from "reactstrap";
 
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { OauthSlice } from "storage/features/login/loginSlice";
 
-import loginServices from '../../services/login'
+import loginServices from '../../services/login';
+
+
+import Vars from "vars";
 
 const Login = () => {
 
+  const ipServer = Vars.LOCAL === true ? 'localhost' : Vars.DEPLOYIP;
+
+  const dispatch = useDispatch();
   const { register, handleSubmit} = useForm();
 
-  //const { ref, ...registerEmail } = register('email');
-
-  const values = ["email", "passwd"]
-  const registers = []
+  const values = ["email", "passwd"];
+  const registers = [];
  
   values.forEach((v) => {
     const {ref, ...others} =  register(v)
     registers.push({
       ref,
       others
-    })
-  })
+    });
+  });
 
   const onSubmit = async(data) => {
-    const response = await (await loginServices(data)).data
+
+    const Token = await (await loginServices(data)).data;
     
-    if(response === "no puede ingresar" || response === "No existe el usuario"){
+    if(Token === "no puede ingresar" || Token === "No existe el usuario"){
       console.log("error")
     }else{
-      window.location.href = "http://localhost:3000/home"
+
+      const TokenWithoutBearer = Token.slice(7)
+
+      dispatch(OauthSlice(TokenWithoutBearer))
+      localStorage.setItem('Oauth', TokenWithoutBearer)      
+
+      window.location.href = `http://${ipServer}:3000/home`
     }
   };
 
@@ -123,8 +136,8 @@ const Login = () => {
           <Col className="text-right" xs="6">
             <a
               className="text-light"
-              href="http://localhost:3000/auth/register"
-              onClick={(e) =>  window.location.href = "http://localhost:3000/auth"}
+              href={`http://${ipServer}:3000/auth/register`}
+              onClick={(e) =>  window.location.href = `http://${ipServer}:3000/auth/register`}
             >
               <small>crear una cuenta</small>
             </a>
