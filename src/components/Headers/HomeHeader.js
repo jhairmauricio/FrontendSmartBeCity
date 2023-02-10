@@ -9,8 +9,8 @@ import AmbulanceCard from "components/cards/ambulanceCard";
 import AmbulanciaModal from "components/Modals/ambulanciaModal";
 import AmbulanciaPagination from 'components/pagination/AmbulaciaPagination';
 
-import { RambulanciasByuser } from 'services/user';
-import { RgpsByambulancia } from 'services/ambulancia';
+import { RambulanciasByuser, linkAmbulancia } from 'services/user';
+import Cambulancia, { RgpsByambulancia, Dambulancia, UambulanciabyId } from 'services/ambulancia';
 
 const HomeHeader = () => {
 
@@ -23,7 +23,7 @@ const HomeHeader = () => {
   const trashIconHandler  = () => setTrashIcon(!isOpenTrashIcon);
   const wrenchIconHandler = () => setWrenchIcon(!isOpenWrenchIcon);
 
-  const token = useSelector((state) => state.login).value
+  const token = useSelector((state) => state.login).value;
   const decodeUser = jwtDecode(token).doc;
 
   const GetAmbulancesInfo = async() => {
@@ -39,22 +39,25 @@ const HomeHeader = () => {
     }
   }
 
-  useEffect(() => {GetAmbulancesInfo()},[])
+  useEffect(() => {GetAmbulancesInfo()},[]);
 
+  const idAmbulanciaCard = useSelector((state => state.idAmbulancia));
+ 
   const { register, handleSubmit} = useForm();
 
-  const formKeys = ["placa"];
-  const registers = [];
- 
-  formKeys.forEach((v) => {
-    const {ref, ...others} =  register(v)
-    registers.push({
-      ref,
-      others
-    });
-  });
-
   const CreateEditContentModal = () => {
+
+    const formKeys = ["placa"];
+    const registers = [];
+   
+    formKeys.forEach((v) => {
+      const {ref, ...others} =  register(v)
+      registers.push({
+        ref,
+        others
+      });
+    });
+
     return <>
         <InputGroup>
           <InputGroupAddon addonType="prepend">@</InputGroupAddon>
@@ -67,11 +70,19 @@ const HomeHeader = () => {
     </>
   }
 
-
   const onSubmitCreateAmbulance = (data) => {
-    console.log(data)
+    Cambulancia(data, token).then(ambulancia => linkAmbulancia(decodeUser["_id"], ambulancia.data["_id"], token))
   }
 
+  const onSubmitDeleteAmbulance = () => {
+    Dambulancia(idAmbulanciaCard.idTrash, token)
+  }
+
+  const onSubmitUpdateAmbulance = (data) => {
+    console.log(data)
+    UambulanciabyId(data, idAmbulanciaCard.idWrech, token)
+  }
+  
   return (
     <>
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
@@ -85,6 +96,7 @@ const HomeHeader = () => {
 
                 {
                   AmbulancesUseState.map(ambulance => <AmbulanceCard 
+                    id    = {ambulance["_id"]}
                     plate = {ambulance.placa} 
                     ubication = {{lat:20, lon:20}} 
                     ModalHandler = {
@@ -119,9 +131,39 @@ const HomeHeader = () => {
         }
 
         handleSubmit = {handleSubmit}
-        onSubmit = {onSubmitCreateAmbulance}
+        onSubmit     = {onSubmitCreateAmbulance}
         
         />
+
+        <AmbulanciaModal 
+          handlerFunction = {trashIconHandler}  
+          modalStatus  = {isOpenTrashIcon}
+          style = {
+            {
+              title : "Eliminar Ambulancia",
+              buttonMessage : "Eliminar",
+              content : "Estar seguro de eliminar la ambulancia"
+            }
+          }
+
+          handleSubmit = {handleSubmit}
+          onSubmit     = {onSubmitDeleteAmbulance}
+        />
+
+        <AmbulanciaModal 
+          handlerFunction = {wrenchIconHandler} 
+          modalStatus = {isOpenWrenchIcon}
+          style = {
+            {
+              title : "Editar Ambulancia",
+              buttonMessage : "Editar",
+              content : CreateEditContentModal
+            }
+          }
+          handleSubmit = {handleSubmit}
+          onSubmit     = {onSubmitUpdateAmbulance}
+        />
+
     </>
   );
 };

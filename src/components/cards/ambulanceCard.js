@@ -1,11 +1,25 @@
 import { Col, Card, CardBody, Row, CardTitle, CardFooter } from "reactstrap";
 
+import { useDispatch } from "react-redux";
+import { setIdTrash, setIdWrech } from "storage/features/idAmbulancias/idAmbulanciasSlice";
 
 function AmbulanceCard(props) {
 
+    const dispatch = useDispatch();
+
+    const OnClickTrashIcon = () => {
+        props.ModalHandler.trash()
+        dispatch(setIdTrash(props.id))
+    }
+
+    const OnClickWrechIcon = () => {
+        props.ModalHandler.wrench()
+        dispatch(setIdWrech(props.id))
+    }
+
 return (    
         <Col lg="6" xl="3">
-            <Card className="card-stats mb-4 mb-xl-0">
+            <Card className="card-stats mb-xl-0 my-4">
                 <CardBody>
                         <Row>
                         <div className="col">
@@ -26,10 +40,10 @@ return (
                 </CardBody>
 
                 <CardFooter>
-                    <div className="icon icon-shape bg-danger text-white rounded-circle shadow " onClick = {props.ModalHandler.trash}>
+                    <div className="icon icon-shape bg-danger text-white rounded-circle shadow " onClick = {OnClickTrashIcon}>
                         <i className="fas fa-trash-alt" />
                     </div>
-                    <div className="icon icon-shape bg-warning text-white rounded-circle shadow ml-3" onClick = {props.ModalHandler.wrench}>
+                    <div className="icon icon-shape bg-warning text-white rounded-circle shadow ml-3" onClick = {OnClickWrechIcon}>
                         <i className="fas fa-wrench" />
                     </div>
                 </CardFooter>

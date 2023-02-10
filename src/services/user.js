@@ -12,5 +12,12 @@ const RambulanciasByuser = async(id, token) =>  axios.get(
         }
 })
 
+const linkAmbulancia = async(idc, idl, token) => axios.patch(
+  `${uri}/linkAmbulancia?idc=${idc}&idl=${idl}`,{},{
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+  })
+
 export default Cuser;
-export {RambulanciasByuser}
+export {RambulanciasByuser, linkAmbulancia};

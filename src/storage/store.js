@@ -1,12 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import loginReducer from './features/login/loginSlice'
-import sidebarReducer from './features/showSidebar/showSidebarSlice'
-import spaceReducer from './features/space/spaceSlice'
+import idAmbulaciaReducer from './features/idAmbulancias/idAmbulanciasSlice'
 
 export const store = configureStore({
   reducer: {
     login: loginReducer,
-    sidebarShow : sidebarReducer,
-    space : spaceReducer
+    idAmbulancia : idAmbulaciaReducer
   },
 })
