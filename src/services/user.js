@@ -1,19 +1,19 @@
-import axios from 'axios'
-import vars from '../vars'
+import serviceProvider from './provider'
 
-const uri =  vars.LOCAL == true ? `http://localhost:${vars.BACKPORT}/api/user` : `http://${vars.REMOTEIP}:${vars.BACKPORT}/api/user`
+const serviceAdapter = new serviceProvider("user")
 
-const Cuser = async(body) => axios.post(`${uri}/Cuser`, body)
+const Cuser = async(body) => serviceAdapter.Post(`Cuser`, body)
 
-const RambulanciasByuser = async(id, token) =>  axios.get(
-    `${uri}/RambulanciasByuser?idc=${id}`,{
+const RambulanciasByuser = async(id, token) =>  serviceAdapter.Get(
+    `RambulanciasByuser?idc=${id}`,{
         headers: {
           'Authorization': `Bearer ${token}`
         }
 })
 
-const linkAmbulancia = async(idc, idl, token) => axios.patch(
-  `${uri}/linkAmbulancia?idc=${idc}&idl=${idl}`,{},{
+const linkAmbulancia = async(idc, idl, token) => serviceAdapter.Patch(
+  `linkAmbulancia?idc=${idc}&idl=${idl}`,
+  {},{
       headers: {
         'Authorization': `Bearer ${token}`
       }

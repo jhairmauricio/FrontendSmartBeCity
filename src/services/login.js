@@ -1,9 +1,8 @@
-import axios from 'axios'
-import vars from '../vars'
+import serviceProvider from './provider'
 
-const uri =  vars.LOCAL === true ? `http://localhost:${vars.BACKPORT}/api/login` : `http://${vars.REMOTEIP}:${vars.BACKPORT}/api/login`
+const serviceAdapter = new serviceProvider("login")
 
-const Oauth = async(body) => axios.post(`${uri}/oauth`, body)
+const Oauth = async(body) => serviceAdapter.Post("oauth", body)
 
 export default Oauth;
 
