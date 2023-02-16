@@ -54,7 +54,12 @@ const Login = () => {
       dispatch(OauthSlice(TokenWithoutBearer))
       localStorage.setItem('Oauth', TokenWithoutBearer)      
 
-      window.location.href = `http://${ipServer}:3000/home`
+      if(Vars.DEPLOY === true){
+        window.location.href = `http://${ipServer}:3000/home`
+      }else{
+        window.location.href = `http://localhost:3000/home`
+      }
+
     }
   };
 
